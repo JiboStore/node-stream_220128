@@ -3,7 +3,7 @@ class Hello {
     static world() {
       console.log('Hello, World!');
     }
-  }
-  Hello.world();
+}
+//   Hello.world();
   
   export default Hello;
