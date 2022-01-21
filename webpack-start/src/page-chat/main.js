@@ -1,16 +1,17 @@
+import GoPlayChat from './goplay-chat'
 require('normalize.css/normalize.css')
 require('../css/main.css')
 require('./page.css')
 const img = require('../img/unicorn.jpg')
 
-const GoPlayChat = require('./goplay-chat')
+// const GoPlayChat = require('./goplay-chat')
 
 function initChat() {
   const options = {debug: true, isDevelopment: false}
   /*
       Param: event-slug, options
   */
-  const chatSocket = new GoPlayChat("last-forever", options)
+  const chatSocket = new GoPlayChat('last-forever', options)
   
   /*
       Connection Callback
