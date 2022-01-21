@@ -13,7 +13,7 @@
     function Guard(options) {
         var self = this;
         self.connect = (url) => {
-            guardSocket = new ReconnectingWebSocket(url, null, options);
+            guardSocket = new ReconnectingWebSocket(url, null, options);            
             guardSocket.onopen = function(event) {
                 joinChatPayload = {'action_type': ActionTypeJoinChatRoom}
                 guardSocket.send(JSON.stringify(joinChatPayload))
@@ -30,7 +30,7 @@
         }
     }
 
-    Guard.prototype.onJoinChatGranted = function (roomId, token) { };
+    Guard.prototype.onJoinChatGranted = function (roomId, token) { };    
 
     return Guard;
 });
@@ -57,7 +57,7 @@
     const API_HOST_INT                  = 'https://g-gsapi.goplay.co.id';
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
-    function GoPlayChat(eventSlug, options) {
+    function GoPlayChat(eventSlug, options) {        
         var self = this;
         var chatSocket = null;
         if (!options) { options = {}; }
@@ -65,7 +65,7 @@
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: false,
+            debug: true,            
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -91,7 +91,7 @@
                 self.options[key] = options[key];
             }
         }
-
+        
         const chatHost = self.options.isDevelopment?'wss://g-gschat.goplay.co.id':'wss://gschat.goplay.co.id'
         const guardSocket = new Guard(self.options)
 
@@ -102,8 +102,8 @@
             !self.options.debug || console.log(response)
             guardSocket.connect(response.data.guard_url)
         });
-
-
+        
+        
         guardSocket.onJoinChatGranted = (roomId, token) => {
             chatSocket = chatSocket || new ReconnectingWebSocket(`${chatHost}/chat`, null, self.options);
             chatSocket.onopen = function (event) {
@@ -113,14 +113,14 @@
                     recon: event.isReconnect,
                     token: token
                 }
-                chatSocket.send(JSON.stringify(authPayload))
+                chatSocket.send(JSON.stringify(authPayload))                
                 !self.options.debug || console.log("joining chat-room", self.options.debug, authPayload)
             };
 
             chatSocket.onclose = function (event) {
                 self.onDisconnected(event)
                 !self.options.debug || console.log('socket closed', event)
-            };
+            };            
 
             chatSocket.onmessage = function (event) {
                 eventData = JSON.parse(event.data)
@@ -135,7 +135,7 @@
                     case CONTENT_TYPE_TICKER:
                         self.onUserCount(eventData.cnt)
                         break;
-                    case CONTENT_TYPE_NEWS_TICKER:
+                    case CONTENT_TYPE_NEWS_TICKER:                    
                         break;
                     case CONTENT_TYPE_SHOUTOUT:
                         break;
@@ -152,8 +152,8 @@
                     case CONTENT_TYPE_LEADERBOARD:
                         break;
                 }
-            }
-        }
+            }           
+        }        
     }
 
     GoPlayChat.prototype.onConnected = function (name) { };
@@ -281,7 +281,7 @@
         };
 
         this.open = function (reconnectAttempt) {
-          console.log('URL: ' + self.url);
+            console.log('URL: ' + self.url);
             ws = new WebSocket(self.url, protocols || []);
             ws.binaryType = this.binaryType;
 

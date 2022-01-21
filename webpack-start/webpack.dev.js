@@ -28,7 +28,9 @@ module.exports = {
       {
         // https://webpack.js.org/loaders/babel-loader/#root
         test: /\.m?js$/i,
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+        ],
         use: {
           loader: 'babel-loader',
           options: {

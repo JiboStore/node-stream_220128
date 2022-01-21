@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const buildPath = path.resolve(__dirname, 'dist')
 
@@ -74,6 +75,7 @@ module.exports = {
 
   // https://webpack.js.org/concepts/plugins/
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/page-index/tmpl.html',
       inject: true,
@@ -106,7 +108,7 @@ module.exports = {
 
   // https://webpack.js.org/configuration/optimization/
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [
       // https://webpack.js.org/plugins/terser-webpack-plugin/
       new TerserPlugin({
