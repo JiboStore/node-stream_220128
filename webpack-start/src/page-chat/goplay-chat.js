@@ -44,6 +44,7 @@
         global.GoPlayChat = factory();
     }
 })(this, function () {
+    console.log('hello')
     const CONTENT_TYPE_AUTH             = 10
     const CONTENT_TYPE_CHAT             = 20
     const CONTENT_TYPE_TICKER           = 36
@@ -100,6 +101,8 @@
         .then(response => response.json())
         .then(response => {
             !self.options.debug || console.log(response)
+            console.log('guard_url: ' + response.data.guard_url)
+            console.log(response)
             guardSocket.connect(response.data.guard_url)
         });
 
