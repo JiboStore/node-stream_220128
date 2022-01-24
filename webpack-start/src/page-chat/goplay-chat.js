@@ -44,6 +44,7 @@
         global.GoPlayChat = factory();
     }
 })(this, function () {
+    console.log('hello')
     const CONTENT_TYPE_AUTH             = 10
     const CONTENT_TYPE_CHAT             = 20
     const CONTENT_TYPE_TICKER           = 36
@@ -65,7 +66,7 @@
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: false,
+            debug: true,
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -100,6 +101,8 @@
         .then(response => response.json())
         .then(response => {
             !self.options.debug || console.log(response)
+            console.log('guard_url: ' + response.data.guard_url)
+            console.log(response)
             guardSocket.connect(response.data.guard_url)
         });
 
@@ -187,7 +190,7 @@
         var settings = {
 
             /** Whether this instance should log debug messages. */
-            debug: false,
+            debug: true,
 
             /** Whether or not the websocket should attempt to connect immediately upon instantiation. */
             automaticOpen: true,
@@ -281,7 +284,7 @@
         };
 
         this.open = function (reconnectAttempt) {
-          console.log('URL: ' + self.url);
+            console.log('URL: ' + self.url);
             ws = new WebSocket(self.url, protocols || []);
             ws.binaryType = this.binaryType;
 

@@ -1,0 +1,1 @@
+import './goplay-chat.js'
