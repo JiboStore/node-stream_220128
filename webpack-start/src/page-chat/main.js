@@ -1,4 +1,7 @@
-import GoPlayChat from './goplay-chat'
+// import GoPlayChat from './goplay-chat'
+import Guard from './g-guard'
+import GoPlayChat from './g-goplaychat'
+import ReconnectingWebSocket from './g-reconnectingwebsocket'
 // import GoPlayChat from './goplay-chat'
 // const gojek = require('./goplay-chat')
 // const { GoPlayChat } = gojek
@@ -26,33 +29,33 @@ const chatSocket = new GoPlayChat('last-forever', options)
 console.log(chatSocket)
 // } catch {}
 // console.log(chatSocket)
-  
+
   /*
       Connection Callback
   */
   chatSocket.onConnected = (name) => {
       console.log('connected as:', name)
   }
-  
+
   chatSocket.onDisconnected = (event) => {
       console.log('disconnected...')
   }
-  
+
   /*
       Message Received Callback
   */
   chatSocket.onGift = (objGift) => {
       console.log('gift received:', objGift)
   }
-  
+
   chatSocket.onChat = (id, from, message) => {
       console.log('chat received:', id, from, message)
   }
-  
+
   chatSocket.onUserCount = (count) => {
       console.log('curr user count:', count)
   }
-  
+
   chatSocket.onLike = (from, count) => {
       console.log('like from:', from, count)
   }
