@@ -1,16 +1,21 @@
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
+        console.log('gp amd Guard');
         define([], factory);
     } else if (typeof module !== 'undefined' && module.exports) {
+        console.log('gp cjs Guard');
         module.exports = factory();
     } else {
+        console.log('gp esm Guard');
         global.Guard = factory();
     }
 })(this, function () {
+    console.log('hello Guard');
     const ActionTypeJoinChatRoom    = 'join_chat_room'
     const ActionTypeJoinChatSuccess = 'join_chat_success'
 
     function Guard(options) {
+        console.log("function Guard", options);
         var self = this;
         self.connect = (url) => {
             guardSocket = new ReconnectingWebSocket(url, null, options);
@@ -37,14 +42,17 @@
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
+        console.log('gp amd GoPlayChat');
         define([], factory);
     } else if (typeof module !== 'undefined' && module.exports) {
+        console.log('gp cjs GoPlayChat');
         module.exports = factory();
     } else {
+        console.log('gp esm GoPlayChat');
         global.GoPlayChat = factory();
     }
 })(this, function () {
-    console.log('hello')
+    console.log('hello GoPlayChat');
     const CONTENT_TYPE_AUTH             = 10
     const CONTENT_TYPE_CHAT             = 20
     const CONTENT_TYPE_TICKER           = 36
@@ -59,6 +67,7 @@
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
     function GoPlayChat(eventSlug, options) {
+        console.log("function GoPlayChat", eventSlug, options);
         var self = this;
         var chatSocket = null;
         if (!options) { options = {}; }
@@ -172,19 +181,25 @@
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
+        console.log('gp amd ReconnectingWebSocket');
         define([], factory);
     } else if (typeof module !== 'undefined' && module.exports){
+        console.log('gp cjs ReconnectingWebSocket');
         module.exports = factory();
     } else {
+        console.log('gp esm ReconnectingWebSocket');
         global.ReconnectingWebSocket = factory();
     }
 })(this, function () {
-
+    console.log('hello ReconnectingWebSocket');
     if (!('WebSocket' in window)) {
+        console.log('no WebSocket in window');
         return;
     }
 
     function ReconnectingWebSocket(url, protocols, options) {
+
+        console.log("function ReconnectingWebSocket", url, protocols, options);
 
         // Default settings
         var settings = {
@@ -284,7 +299,7 @@
         };
 
         this.open = function (reconnectAttempt) {
-            console.log('URL: ' + self.url);
+            console.log('ReconnectingWebSocket open URL: ' + self.url);
             ws = new WebSocket(self.url, protocols || []);
             ws.binaryType = this.binaryType;
 

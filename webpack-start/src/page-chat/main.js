@@ -1,7 +1,9 @@
 // import GoPlayChat from './goplay-chat'
-import Guard from './g-guard'
-import GoPlayChat from './g-goplaychat'
-import ReconnectingWebSocket from './g-reconnectingwebsocket'
+// import Guard from './g-guard'
+// import GoPlayChat from './g-goplaychat'
+// import ReconnectingWebSocket from './g-reconnectingwebsocket'
+import GoPlayChat from './goplay-chat'
+// const gp = require('./goplay-chat')
 // import GoPlayChat from './goplay-chat'
 // const gojek = require('./goplay-chat')
 // const { GoPlayChat } = gojek
@@ -24,6 +26,7 @@ function initChat() {
   */
 //   const chatSocket = gojek.GoPlayChat('last-forever', options)
 // try {
+    // console.log(JSON.stringify(gp));
     console.log(GoPlayChat)
 const chatSocket = new GoPlayChat('last-forever', options)
 console.log(chatSocket)

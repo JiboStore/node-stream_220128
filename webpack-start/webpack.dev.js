@@ -58,7 +58,8 @@ module.exports = {
         resourceQuery: /template/,
         loader: 'html-loader'
       }
-    ]
+    ],
+    noParse: /src\/page-chat\/goplay-chat.js/
   },
 
   // https://webpack.js.org/concepts/plugins/
