@@ -3,7 +3,12 @@
 // import GoPlayChat from './g-goplaychat'
 // import ReconnectingWebSocket from './g-reconnectingwebsocket'
 import GoPlayChat from './goplay-chat'
-import One from './mymodule'
+// import One from './mymodule'
+
+import One from './mymodule-one'
+import Two from './mymodule-two'
+import Three from './mymodule-three'
+
 // const gp = require('./goplay-chat')
 // import GoPlayChat from './goplay-chat'
 // const gojek = require('./goplay-chat')
@@ -25,7 +30,15 @@ function initChat() {
 
   const one = new One('hw');
   console.log('one: ', one);
-  one.mythree('room1', 'token1');
+  one.myone('room1', 'token1');
+
+  const two = new Two('two');
+  console.log('two:', two);
+  two.mytwo('room2', 'token2');
+
+  const three = new Three('three');
+  console.log('three: ', three);
+  three.mythree('room3', 'token3');
   /*
       Param: event-slug, options
   */
