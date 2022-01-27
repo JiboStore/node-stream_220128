@@ -3,6 +3,7 @@
 // import GoPlayChat from './g-goplaychat'
 // import ReconnectingWebSocket from './g-reconnectingwebsocket'
 import GoPlayChat from './goplay-chat'
+import One from './mymodule'
 // const gp = require('./goplay-chat')
 // import GoPlayChat from './goplay-chat'
 // const gojek = require('./goplay-chat')
@@ -21,6 +22,9 @@ console.log(global)
 
 function initChat() {
   const options = {debug: true, isDevelopment: false}
+
+  const one = new One('hello');
+  console.log('one: ', one);
   /*
       Param: event-slug, options
   */
