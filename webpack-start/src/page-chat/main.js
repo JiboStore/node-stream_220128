@@ -23,8 +23,9 @@ console.log(global)
 function initChat() {
   const options = {debug: true, isDevelopment: false}
 
-  const one = new One('hello');
+  const one = new One('hw');
   console.log('one: ', one);
+  one.mythree('room1', 'token1');
   /*
       Param: event-slug, options
   */

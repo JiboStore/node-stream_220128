@@ -20,7 +20,9 @@
         }
     }
 
-    One.prototype.onJoinChatGranted = function (roomId, token) { };
+    One.prototype.myone = function (roomId, token) {
+        console.log('myone: ' + roomId + ', ' + token);
+     }
 
     return One;
 });
@@ -47,7 +49,9 @@
         }
     }
 
-    Two.prototype.onJoinChatGranted = function (roomId, token) { };
+    Two.prototype.mytwo = function (roomId, token) { 
+        console.log('mytwo: ' + roomId + ', ' + token);
+    };
 
     return Two;
 });
@@ -74,7 +78,9 @@
         }
     }
 
-    Three.prototype.onJoinChatGranted = function (roomId, token) { };
+    Three.prototype.mythree = function (roomId, token) { 
+        console.log('mythree: ' + roomId + ', ' + token);
+    };
 
     return Three;
 });
