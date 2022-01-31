@@ -3,3 +3,21 @@ build/
 dist/
 node_modules/
 *.zip
+
+# start node-stream
+.idea
+public
+node_modules
+npm-debug.log
+
+server/thumbnails/*
+!server/thumbnails/.gitkeep
+
+#ignore sessions but keep folder
+server/sessions/*
+!server/sessions/.gitkeep
+
+# ignore media but keep folder
+server/media/*
+!server/media/.gitkeep
+# end node-stream
