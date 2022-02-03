@@ -88,9 +88,19 @@ console.log(chatSocket)
   }
 }
 
+export function clickChatConnect() {
+    var text = document.getElementById('textslugid');
+    console.log(text.value);
+    console.log('clickChatConnect: ' + text.value);
+    alert('clickChatConnect: ' + text.value);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded', 'page-chat')
   console.log('Image through require()', img)
 
   initChat();
+
+  // https://stackoverflow.com/questions/58587016/how-to-use-function-declared-in-js-file-that-built-by-webpack-in-html
+  document.getElementById('btnconnect').addEventListener('click', clickChatConnect);
 })
