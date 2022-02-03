@@ -31,7 +31,8 @@ const img = require('../img/unicorn.jpg')
 // console.log(gojek.GoPlayChat)
 console.log(global)
 
-function initChat() {
+function initChat(slugId) {
+    console.log('initChat: ' + slugId);
   const options = {debug: true, isDevelopment: false}
 
   const one = new One('hw');
@@ -52,20 +53,27 @@ function initChat() {
 // try {
     // console.log(JSON.stringify(gp));
     console.log(GoPlayChat)
-const chatSocket = new GoPlayChat('last-forever', options)
+const chatSocket = new GoPlayChat(slugId, options)
 console.log(chatSocket)
 // } catch {}
 // console.log(chatSocket)
+
+    const labelHello = document.getElementById('labelhello');
+    const labelCount = document.getElementById('labelcount');
+    const labelChat = document.getElementById('labelchat');
+    const labelGift = document.getElementById('labelgift');
 
   /*
       Connection Callback
   */
   chatSocket.onConnected = (name) => {
       console.log('connected as:', name)
+      labelHello.innerHTML = 'Hello: ' + name;
   }
 
   chatSocket.onDisconnected = (event) => {
       console.log('disconnected...')
+      labelHello.innerHTML = "Byee...";
   }
 
   /*
@@ -73,14 +81,17 @@ console.log(chatSocket)
   */
   chatSocket.onGift = (objGift) => {
       console.log('gift received:', objGift)
+      labelGift.innerHTML += objGift.item_id + " : " + objGift.frm + " => " + objGift.title_en + "<br>";
   }
 
   chatSocket.onChat = (id, from, message) => {
       console.log('chat received:', id, from, message)
+      labelChat.innerHTML += from + " : " + message + "<br>";
   }
 
   chatSocket.onUserCount = (count) => {
       console.log('curr user count:', count)
+      labelCount.innerHTML = ' userCount: [' + count + ']'
   }
 
   chatSocket.onLike = (from, count) => {
@@ -90,16 +101,17 @@ console.log(chatSocket)
 
 export function clickChatConnect() {
     var text = document.getElementById('textslugid');
-    console.log(text.value);
-    console.log('clickChatConnect: ' + text.value);
-    alert('clickChatConnect: ' + text.value);
+    const slugid = text.value;
+    // console.log('clickChatConnect: ' + slugid);
+    // alert('clickChatConnect: ' + slugid);
+    initChat(slugid);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded', 'page-chat')
   console.log('Image through require()', img)
 
-  initChat();
+//   initChat('last-forever');
 
   // https://stackoverflow.com/questions/58587016/how-to-use-function-declared-in-js-file-that-built-by-webpack-in-html
   document.getElementById('btnconnect').addEventListener('click', clickChatConnect);
