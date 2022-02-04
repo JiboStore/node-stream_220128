@@ -48,7 +48,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
             /** The maximum number of reconnection attempts to make. Unlimited if null. */
             maxReconnectAttempts: null,
 
-            isDevelopment: true,
+            isDevelopment: false,
             /** Whether or not the websocket should attempt to connect immediately upon instantiation. */
             //automaticOpen: true,
         }
