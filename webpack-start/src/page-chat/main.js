@@ -31,9 +31,14 @@ const img = require('../img/unicorn.jpg')
 // console.log(gojek.GoPlayChat)
 console.log(global)
 
-function initChat(slugId) {
+function initChat_v1(slugId) {
     console.log('initChat: ' + slugId);
-  const options = {debug: true, isDevelopment: false}
+//   const options = {debug: true, isDevelopment: false}
+    const options = {
+        debug: false,
+        isDevelopment: false,
+        hostToken: 'eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw'
+    };
 
   const one = new One('hw');
   console.log('one: ', one);
@@ -97,6 +102,69 @@ console.log(chatSocket)
   chatSocket.onLike = (from, count) => {
       console.log('like from:', from, count)
   }
+}
+
+function initChat(slugId) {
+    /*
+        Option:
+        debug boolean: print debug log
+        isDevelopment boolean: connect to development or production env
+        hostToken: string. Host authentication token, can be obtained from Dashboard Performer
+    */
+        const options = {
+            debug: false,
+            isDevelopment: false,
+            hostToken: 'eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw'
+        }
+
+        // const options = {
+        //     debug: false,
+        //     isDevelopment: false
+        // }
+
+        /*
+            Param: event-slug, options
+        */
+        const eventSlug = slugId
+        const chatSocket = new GoPlayChat(eventSlug, options)
+        
+        /*
+            Connection Callback
+        */
+        chatSocket.onConnected = (name) => { 
+            console.log(`${new Date().toISOString()} connected as ${name}`)
+        }
+
+        chatSocket.onDisconnected = (event) => { 
+            console.log(`${new Date().toISOString()} disconnected...`)
+        }
+
+        /*
+            Message Received Callback
+        */
+        chatSocket.onGift = (objGift) => { 
+            console.log(`${new Date().toISOString()} gift received:`, objGift)
+        }
+
+        chatSocket.onChat = (id, from, message) => {
+            console.log(`${new Date().toISOString()} chat[${id}] ${from}: ${message}`)
+        }
+
+        chatSocket.onUserCount = (count) => { 
+            console.log(`${new Date().toISOString()} curr user count:${count}`)
+        }
+
+        chatSocket.onLike = (from, count) => { 
+            console.log(`${new Date().toISOString()} ${from} likes count: ${count}`)
+        }
+
+        chatSocket.onTipmeter = (title, unit, progress, goal) => { 
+            console.log(`${new Date().toISOString()} tip meter: ${title} ${progress}/${goal} ${unit}`)
+        }
+
+        chatSocket.onLeaderboard = (type, unit, leaderboards) => {
+            console.log(`${new Date().toISOString()} leaderboard type: ${type} ${unit}. Leaderboards:`, leaderboards)
+        }
 }
 
 export function clickChatConnect() {

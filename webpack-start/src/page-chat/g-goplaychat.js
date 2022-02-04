@@ -33,7 +33,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: false,            
+            debug: true,            
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -54,11 +54,11 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
         }
 
         // Overwrite and define settings with options if they exist.
-        for (var key in self.options) {
-            if (typeof options[key] !== 'undefined') {
-                self.options[key] = options[key];
-            }
-        }
+        // for (var key in self.options) {
+        //     if (typeof options[key] !== 'undefined') {
+        //         self.options[key] = options[key];
+        //     }
+        // }
 
         const guardHost = self.options.isDevelopment?'wss://g-vanguard.goplay.co.id':'wss://vanguard.goplay.co.id';
         const guardSocket = new Guard(self.options)
