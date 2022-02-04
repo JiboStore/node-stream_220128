@@ -18,7 +18,7 @@
         var settings = {
 
             /** Whether this instance should log debug messages. */
-            debug: true,
+            debug: false,
 
             /** Whether or not the websocket should attempt to connect immediately upon instantiation. */
             automaticOpen: true,
@@ -112,7 +112,6 @@
         };
 
         this.open = function (reconnectAttempt) {
-            console.log('URL: ' + self.url);
             ws = new WebSocket(self.url, protocols || []);
             ws.binaryType = this.binaryType;
 

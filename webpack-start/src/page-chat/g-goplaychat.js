@@ -10,7 +10,6 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
         global.GoPlayChat = factory();
     }
 })(this, function () {
-    console.log('hello')
     const CONTENT_TYPE_AUTH             = 10
     const CONTENT_TYPE_CHAT             = 20
     const CONTENT_TYPE_TICKER           = 36
@@ -24,15 +23,17 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
     const API_HOST_INT                  = 'https://g-gsapi.goplay.co.id';
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
-    function GoPlayChat(eventSlug, options) {
+    function GoPlayChat(eventSlug, {hostToken='', debug=false, isDevelopment=false} ) {        
         var self = this;
         var chatSocket = null;
-        if (!options) { options = {}; }
+        if( !eventSlug && !hostToken ) {
+            throw Error("Either eventSlug or hostToken is required")
+        }
 
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: true,
+            debug: false,            
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -59,21 +60,22 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
             }
         }
 
-        const chatHost = self.options.isDevelopment?'wss://g-gschat.goplay.co.id':'wss://gschat.goplay.co.id'
+        const guardHost = self.options.isDevelopment?'wss://g-vanguard.goplay.co.id':'wss://vanguard.goplay.co.id';
         const guardSocket = new Guard(self.options)
-
-        const API_HOST = self.options.isDevelopment?API_HOST_INT:API_HOST_PRD;
-        fetch(`${API_HOST}/public/v1/event_detail/${encodeURI(eventSlug)}`)
-        .then(response => response.json())
-        .then(response => {
-            !self.options.debug || console.log(response)
-            console.log('guard_url: ' + response.data.guard_url)
-            console.log(response)
-            guardSocket.connect(response.data.guard_url)
-        });
-
-
+        if( hostToken ) {
+            guardSocket.connect(`${guardHost}/live-guard?token=${hostToken}`)
+        } else {
+            const API_HOST = self.options.isDevelopment?API_HOST_INT:API_HOST_PRD;
+                fetch(`${API_HOST}/public/v1/event_detail/${encodeURI(eventSlug)}`)
+                .then(response => response.json())
+                .then(response => {
+                    !self.options.debug || console.log(response)
+                    guardSocket.connect(response.data.guard_url)
+                });
+        }        
+        
         guardSocket.onJoinChatGranted = (roomId, token) => {
+            const chatHost = self.options.isDevelopment?'wss://g-gschat.goplay.co.id':'wss://gschat.goplay.co.id';
             chatSocket = chatSocket || new ReconnectingWebSocket(`${chatHost}/chat`, null, self.options);
             chatSocket.onopen = function (event) {
                 authPayload = {
@@ -82,14 +84,14 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
                     recon: event.isReconnect,
                     token: token
                 }
-                chatSocket.send(JSON.stringify(authPayload))
+                chatSocket.send(JSON.stringify(authPayload))                
                 !self.options.debug || console.log("joining chat-room", self.options.debug, authPayload)
             };
 
             chatSocket.onclose = function (event) {
                 self.onDisconnected(event)
                 !self.options.debug || console.log('socket closed', event)
-            };
+            };            
 
             chatSocket.onmessage = function (event) {
                 eventData = JSON.parse(event.data)
@@ -104,7 +106,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
                     case CONTENT_TYPE_TICKER:
                         self.onUserCount(eventData.cnt)
                         break;
-                    case CONTENT_TYPE_NEWS_TICKER:
+                    case CONTENT_TYPE_NEWS_TICKER:                    
                         break;
                     case CONTENT_TYPE_SHOUTOUT:
                         break;
@@ -117,12 +119,14 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
                         self.onGift(eventData)
                         break;
                     case CONTENT_TYPE_TIP_METER:
+                        self.onTipmeter(eventData.title, eventData.unit, eventData.progress, eventData.goal)
                         break;
                     case CONTENT_TYPE_LEADERBOARD:
+                        self.onLeaderboard(eventData.leaderboard_type, eventData.unit, eventData.leaderboard)
                         break;
                 }
-            }
-        }
+            }           
+        }        
     }
 
     GoPlayChat.prototype.onConnected = function (name) { };
@@ -131,6 +135,8 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
     GoPlayChat.prototype.onChat = function (id, from, message) { };
     GoPlayChat.prototype.onGift = function (gift_object) { };
     GoPlayChat.prototype.onLike = function (count) { };
+    GoPlayChat.prototype.onTipmeter = function (title, unit, progress, goal) { };
+    GoPlayChat.prototype.onLeaderboard = function (total, unit, leaderboards) { };
 
     return GoPlayChat;
 });

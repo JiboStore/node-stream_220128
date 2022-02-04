@@ -15,7 +15,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
     function Guard(options) {
         var self = this;
         self.connect = (url) => {
-            guardSocket = new ReconnectingWebSocket(url, null, options);
+            guardSocket = new ReconnectingWebSocket(url, null, options);            
             guardSocket.onopen = function(event) {
                 joinChatPayload = {'action_type': ActionTypeJoinChatRoom}
                 guardSocket.send(JSON.stringify(joinChatPayload))
@@ -32,7 +32,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
         }
     }
 
-    Guard.prototype.onJoinChatGranted = function (roomId, token) { };
+    Guard.prototype.onJoinChatGranted = function (roomId, token) { };    
 
     return Guard;
 });
