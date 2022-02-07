@@ -104,17 +104,21 @@ console.log(chatSocket)
   }
 }
 
-function initChat(slugId) {
+function initChat(slugId, hostToken, isDev) {
     /*
         Option:
         debug boolean: print debug log
         isDevelopment boolean: connect to development or production env
         hostToken: string. Host authentication token, can be obtained from Dashboard Performer
     */
-        const options = {
+        var options = {
             debug: true,
-            isDevelopment: false,
+            isDevelopment: isDev == '0' ? false : true,
             hostTokenX: 'eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw'
+        }
+
+        if ( hostToken && hostToken.length > 0 ) {
+            options = Object.assign(options, {hostToken})
         }
 
         // const options = {
@@ -127,16 +131,25 @@ function initChat(slugId) {
         */
         const eventSlug = slugId
         const chatSocket = new GoPlayChat(eventSlug, options)
+
+        const labelHello = document.getElementById('labelhello');
+        const labelCount = document.getElementById('labelcount');
+        const labelChat = document.getElementById('labelchat');
+        const labelGift = document.getElementById('labelgift');
+        const labelTipmeter = document.getElementById('labeltipmeter');
+        const labelLeaderboard = document.getElementById('labelleaderboard');
         
         /*
             Connection Callback
         */
         chatSocket.onConnected = (name) => { 
             console.log(`${new Date().toISOString()} connected as ${name}`)
+            labelHello.innerHTML = 'Hello: ' + name;
         }
 
         chatSocket.onDisconnected = (event) => { 
             console.log(`${new Date().toISOString()} disconnected...`)
+            labelHello.innerHTML = "Byee...";
         }
 
         /*
@@ -144,14 +157,17 @@ function initChat(slugId) {
         */
         chatSocket.onGift = (objGift) => { 
             console.log(`${new Date().toISOString()} gift received:`, objGift)
+            labelGift.innerHTML += objGift.item_id + " : " + objGift.frm + " => " + objGift.title_en + "<br>";
         }
 
         chatSocket.onChat = (id, from, message) => {
             console.log(`${new Date().toISOString()} chat[${id}] ${from}: ${message}`)
+            labelChat.innerHTML += from + " : " + message + "<br>";
         }
 
         chatSocket.onUserCount = (count) => { 
             console.log(`${new Date().toISOString()} curr user count:${count}`)
+            labelCount.innerHTML = ' userCount: [' + count + ']'
         }
 
         chatSocket.onLike = (from, count) => { 
@@ -160,19 +176,27 @@ function initChat(slugId) {
 
         chatSocket.onTipmeter = (title, unit, progress, goal) => { 
             console.log(`${new Date().toISOString()} tip meter: ${title} ${progress}/${goal} ${unit}`)
+            labelTipmeter.innerHTML += 'Tipmeter: ' + title + ' unit: ' + unit + ' progress: ' + progress + ' goal: ' + goal + '<br>'
         }
 
         chatSocket.onLeaderboard = (type, unit, leaderboards) => {
             console.log(`${new Date().toISOString()} leaderboard type: ${type} ${unit}. Leaderboards:`, leaderboards)
+            labelLeaderboard.innerHtml += 'Leaderboard type: ' + type + ' unit: ' + unit + '<br> leaderboards: ' + leaderboards + '<br>';
         }
 }
 
 export function clickChatConnect() {
-    var text = document.getElementById('textslugid');
-    const slugid = text.value;
+    var textslugid = document.getElementById('textslugid');
+    const slugid = textslugid.value;
+
+    var texthosttoken = document.getElementById('texthosttoken');
+    const hosttoken = texthosttoken.value;
+
+    var textisdev = document.getElementById('textisdev');
+    const isdev = textisdev.value;
     // console.log('clickChatConnect: ' + slugid);
     // alert('clickChatConnect: ' + slugid);
-    initChat(slugid);
+    initChat(slugid, hosttoken, isdev);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
