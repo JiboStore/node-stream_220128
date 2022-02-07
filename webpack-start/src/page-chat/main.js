@@ -113,8 +113,8 @@ function initChat(slugId) {
     */
         const options = {
             debug: true,
-            isDevelopment: true,
-            hostToken: 'eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw'
+            isDevelopment: false,
+            hostTokenX: 'eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw'
         }
 
         // const options = {
