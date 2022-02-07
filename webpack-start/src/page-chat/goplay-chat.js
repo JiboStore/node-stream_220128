@@ -57,9 +57,10 @@
     const API_HOST_INT                  = 'https://g-gsapi.goplay.co.id';
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
-    function GoPlayChat(eventSlug, {hostToken='', debug=false, isDevelopment=false} ) {        
+    function GoPlayChat(eventSlug, options) {
         var self = this;
         var chatSocket = null;
+        var hostToken = 'hostToken' in options?options['hostToken']:'';
         if( !eventSlug && !hostToken ) {
             throw Error("Either eventSlug or hostToken is required")
         }

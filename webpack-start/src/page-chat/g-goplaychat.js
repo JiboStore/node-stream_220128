@@ -23,9 +23,10 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
     const API_HOST_INT                  = 'https://g-gsapi.goplay.co.id';
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
-    function GoPlayChat(eventSlug, {hostToken='', debug=false, isDevelopment=false} ) {        
+    function GoPlayChat(eventSlug, options) {
         var self = this;
         var chatSocket = null;
+        var hostToken = 'hostToken' in options?options['hostToken']:'';
         if( !eventSlug && !hostToken ) {
             throw Error("Either eventSlug or hostToken is required")
         }
@@ -33,7 +34,7 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: true,            
+            debug: false,            
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -48,17 +49,17 @@ const ReconnectingWebSocket = require('./g-reconnectingwebsocket');
             /** The maximum number of reconnection attempts to make. Unlimited if null. */
             maxReconnectAttempts: null,
 
-            isDevelopment: false,
+            isDevelopment: true,
             /** Whether or not the websocket should attempt to connect immediately upon instantiation. */
             //automaticOpen: true,
         }
 
         // Overwrite and define settings with options if they exist.
-        // for (var key in self.options) {
-        //     if (typeof options[key] !== 'undefined') {
-        //         self.options[key] = options[key];
-        //     }
-        // }
+        for (var key in self.options) {
+            if (typeof options[key] !== 'undefined') {
+                self.options[key] = options[key];
+            }
+        }
 
         const guardHost = self.options.isDevelopment?'wss://g-vanguard.goplay.co.id':'wss://vanguard.goplay.co.id';
         const guardSocket = new Guard(self.options)
