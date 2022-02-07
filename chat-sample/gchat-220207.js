@@ -13,7 +13,7 @@
     function Guard(options) {
         var self = this;
         self.connect = (url) => {
-            guardSocket = new ReconnectingWebSocket(url, null, options);
+            guardSocket = new ReconnectingWebSocket(url, null, options);            
             guardSocket.onopen = function(event) {
                 joinChatPayload = {'action_type': ActionTypeJoinChatRoom}
                 guardSocket.send(JSON.stringify(joinChatPayload))
@@ -30,7 +30,7 @@
         }
     }
 
-    Guard.prototype.onJoinChatGranted = function (roomId, token) { };
+    Guard.prototype.onJoinChatGranted = function (roomId, token) { };    
 
     return Guard;
 });
@@ -57,9 +57,10 @@
     const API_HOST_INT                  = 'https://g-gsapi.goplay.co.id';
     const API_HOST_PRD                  = 'https://gsapi.goplay.co.id';
 
-    function GoPlayChat(eventSlug, {hostToken='', debug=false, isDevelopment=false} ) {
+    function GoPlayChat(eventSlug, options) {
         var self = this;
         var chatSocket = null;
+        var hostToken = 'hostToken' in options?options['hostToken']:'';
         if( !eventSlug && !hostToken ) {
             throw Error("Either eventSlug or hostToken is required")
         }
@@ -67,7 +68,7 @@
         // Default options
         self.options = {
             /** Whether this instance should log debug messages. */
-            debug: false,
+            debug: false,            
 
             /** The number of milliseconds to delay before attempting to reconnect. */
             reconnectInterval: 1000,
@@ -82,18 +83,17 @@
             /** The maximum number of reconnection attempts to make. Unlimited if null. */
             maxReconnectAttempts: null,
 
-            isDevelopment: false,
+            isDevelopment: true,
             /** Whether or not the websocket should attempt to connect immediately upon instantiation. */
             //automaticOpen: true,
         }
 
         // Overwrite and define settings with options if they exist.
-        // for (var key in self.options) {
-        //     if (typeof options[key] !== 'undefined') {
-        //         self.options[key] = options[key];
-        //     }
-        // }
-        // console.log('options: ', options);
+        for (var key in self.options) {
+            if (typeof options[key] !== 'undefined') {
+                self.options[key] = options[key];
+            }
+        }
 
         const guardHost = self.options.isDevelopment?'wss://g-vanguard.goplay.co.id':'wss://vanguard.goplay.co.id';
         const guardSocket = new Guard(self.options)
@@ -107,8 +107,8 @@
                     !self.options.debug || console.log(response)
                     guardSocket.connect(response.data.guard_url)
                 });
-        }
-
+        }        
+        
         guardSocket.onJoinChatGranted = (roomId, token) => {
             const chatHost = self.options.isDevelopment?'wss://g-gschat.goplay.co.id':'wss://gschat.goplay.co.id';
             chatSocket = chatSocket || new ReconnectingWebSocket(`${chatHost}/chat`, null, self.options);
@@ -119,14 +119,14 @@
                     recon: event.isReconnect,
                     token: token
                 }
-                chatSocket.send(JSON.stringify(authPayload))
+                chatSocket.send(JSON.stringify(authPayload))                
                 !self.options.debug || console.log("joining chat-room", self.options.debug, authPayload)
             };
 
             chatSocket.onclose = function (event) {
                 self.onDisconnected(event)
                 !self.options.debug || console.log('socket closed', event)
-            };
+            };            
 
             chatSocket.onmessage = function (event) {
                 eventData = JSON.parse(event.data)
@@ -141,7 +141,7 @@
                     case CONTENT_TYPE_TICKER:
                         self.onUserCount(eventData.cnt)
                         break;
-                    case CONTENT_TYPE_NEWS_TICKER:
+                    case CONTENT_TYPE_NEWS_TICKER:                    
                         break;
                     case CONTENT_TYPE_SHOUTOUT:
                         break;
@@ -160,8 +160,8 @@
                         self.onLeaderboard(eventData.leaderboard_type, eventData.unit, eventData.leaderboard)
                         break;
                 }
-            }
-        }
+            }           
+        }        
     }
 
     GoPlayChat.prototype.onConnected = function (name) { };
