@@ -104,6 +104,8 @@ console.log(chatSocket)
   }
 }
 
+var chatSocket = null;
+
 function initChat(slugId, hostToken, isDev) {
     /*
         Option:
@@ -130,7 +132,7 @@ function initChat(slugId, hostToken, isDev) {
             Param: event-slug, options
         */
         const eventSlug = slugId
-        const chatSocket = new GoPlayChat(eventSlug, options)
+        chatSocket = new GoPlayChat(eventSlug, options)
 
         const labelHello = document.getElementById('labelhello');
         const labelCount = document.getElementById('labelcount');
@@ -199,6 +201,17 @@ export function clickChatConnect() {
     initChat(slugid, hosttoken, isdev);
 }
 
+export function clickConsumeGift() {
+    var textgiftid = document.getElementById('textgiftid');
+    const giftid = textgiftid.value;
+    console.log('giftid: ' + giftid);
+
+    if ( chatSocket ) {
+        console.log('consuming giftid: ' + giftid);
+        chatSocket.consumeGift(giftid);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded', 'page-chat')
   console.log('Image through require()', img)
@@ -207,4 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // https://stackoverflow.com/questions/58587016/how-to-use-function-declared-in-js-file-that-built-by-webpack-in-html
   document.getElementById('btnconnect').addEventListener('click', clickChatConnect);
+
+  document.getElementById('btnconsumegift').addEventListener('click', clickConsumeGift);
 })
