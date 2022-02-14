@@ -159,7 +159,7 @@ function initChat(slugId, hostToken, isDev) {
         */
         chatSocket.onGift = (objGift) => { 
             console.log(`${new Date().toISOString()} gift received:`, objGift)
-            labelGift.innerHTML += objGift.item_id + " : " + objGift.frm + " => " + objGift.title_en + "<br>";
+            labelGift.innerHTML += objGift.id + ' = ' + objGift.item_id + ' cons_at: ' + objGift.cons_at + " : " + objGift.frm + " => " + objGift.title_en + "<br>";
         }
 
         chatSocket.onChat = (id, from, message) => {
@@ -208,7 +208,7 @@ export function clickConsumeGift() {
 
     if ( chatSocket ) {
         console.log('consuming giftid: ' + giftid);
-        chatSocket.consumeGift(giftid);
+        chatSocket.consumeGift(parseInt(giftid));
     }
 }
 
