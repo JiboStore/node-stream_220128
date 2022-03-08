@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="cache-control" content="no-cache"/>
+  <meta http-equiv="pragma" content="no-cache"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport"
+        content="width=device-width,user-scalable=0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+
+  <%= require('../partials/nav.html?raw') %>
+
+  <h1 class="page-title">
+    <i class="fab fa-apple"></i>
+    CHAT
+  </h1>
+
+  <div>
+      <label for="slugid">Slug ID:</label><br>
+      <input id="textslugid" type="text" id="slugid" name="slugid" value="last-forever"><br>
+      <input id="texthosttoken" type="text" id="hosttoken" name="hosttoken" value="eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicDJjIjoxMDAxLCJwMnMiOiJVdjM4QnlHQ1pVOFdQMThQbW1JZCJ9.yccrp5JshHHq4z8g27QLE8mAQEa2V8C4qXjA7YVLoR2qB-RoaCgjHw.BC1Jwt-yYST9fkvn_wgwEA.cH3M07pZlfdWLlqQT_dBBMuBqEEyhpgkl9naEezplhqjOrlwK64QF-qXwnyXoVAfZt0lAnE-MuacXSB63PbZYXBMJmPOuJfCNZCw5qmhcFIVA-lSPJVOD9x0bh22mv_lKc1ffkDyRmHwgwDEfnMGkX1eAiGjx35HBJ6DgzrBz-up2VDlvZEMtwl7HYcQ9j30fA3mHPQivS2FkQ4HDhJ20Emm_l47I-JqIGkWNkT-72K1-KAsvJXLraQFPxKJHqxm4U9_g5Ioqs-_pXeqqTGupOEcv1E9LI6qGawn5ZV_3l1TdoULib6jy1yrKH-UX85ppuhGduWIyDSynfpX3jAy5pqDovWBuvkN_GXfpc8AgvhvPC_pWTUkXrx3k9D-1rWQjHJ_PXNXhkGVGJlBQ_v9BA.7dhqSMIVuSOg9IUHKwbSgw"><br>
+      <input id="textisdev" type="text" id="isdev" name="isdev" value="0"><input id="btnconnect" type="submit" value="Connect"><br><br>
+      <input id="textgiftid" type="text" id="giftid" name="giftid" value="23"><button type="button" id="btnconsumegift">Consume Gift</button><br>
+
+      <label id="labelhello"></label>
+      <label id="labelcount"></label>
+      <br>
+      <label id="labelgift"></label><br>
+      <label id="labelchat"></label><br>
+      <br>
+      <label id="labeltipmeter"></label><br>
+      <label id="labelleaderboard"></label><br>
+  </div>
+
+  <div style="text-align: center">
+    <img class="img-src-uses-require" src="<%= require('../img/unicorn.jpg') %>" width="200">
+
+    <!-- uses a specific "template" resourceQuery (webpack config) which will load a file like a esModule by default, hence ".default" -->
+    <%= require('../partials/images.html?template').default %>
+  </div>
+
+  <%= require('../partials/footer.html?raw') %>
+</body>
+</html>

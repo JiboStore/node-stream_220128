@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <script type="module" src="./example.js" ></script>
+        <script type="module">
+            // var sample = new chatSample();
+            // sample.init();
+            function execMe() {
+                console.log('execMe');
+                Hello.world();
+            }
+        </script>
+    </head>
+    <body>
+        <button onClick="() => {
+            console.log('button clicked');
+            Hello.world();
+        }">Hello World</button>
+        <button onClick="execMe()">execMe</button>
+    </body>
+</html>
