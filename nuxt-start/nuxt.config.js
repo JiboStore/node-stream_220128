@@ -16,6 +16,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+        src: 'https://storms.com/games/lib/gchat-220210.js',
+        body: true,
+      }
     ]
   },
 

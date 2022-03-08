@@ -1,5 +1,5 @@
 <template>
-  <Tutorial/>
+  <ConnectChat/>
 </template>
 
 <script>
