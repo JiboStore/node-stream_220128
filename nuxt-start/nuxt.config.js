@@ -1,3 +1,6 @@
+import path from 'path'
+import fs from 'fs'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -5,7 +8,11 @@ export default {
   // Custom server
   server: {
     port: process.env.PORT || 8000,
-    host: process.env.HOST || 'localhost'
+    host: process.env.HOST || 'localhost',
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    }
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
