@@ -140,16 +140,16 @@ function initChat(slugId, hostToken, isDev) {
         const labelGift = document.getElementById('labelgift');
         const labelTipmeter = document.getElementById('labeltipmeter');
         const labelLeaderboard = document.getElementById('labelleaderboard');
-        
+
         /*
             Connection Callback
         */
-        chatSocket.onConnected = (name) => { 
+        chatSocket.onConnected = (name) => {
             console.log(`${new Date().toISOString()} connected as ${name}`)
             labelHello.innerHTML = 'Hello: ' + name;
         }
 
-        chatSocket.onDisconnected = (event) => { 
+        chatSocket.onDisconnected = (event) => {
             console.log(`${new Date().toISOString()} disconnected...`)
             labelHello.innerHTML = "Byee...";
         }
@@ -157,7 +157,7 @@ function initChat(slugId, hostToken, isDev) {
         /*
             Message Received Callback
         */
-        chatSocket.onGift = (objGift) => { 
+        chatSocket.onGift = (objGift) => {
             console.log(`${new Date().toISOString()} gift received:`, objGift)
             labelGift.innerHTML += objGift.id + ' = ' + objGift.item_id + ' cons_at: ' + objGift.cons_at + " : " + objGift.frm + " => " + objGift.title_en + "<br>";
         }
@@ -167,16 +167,16 @@ function initChat(slugId, hostToken, isDev) {
             labelChat.innerHTML += from + " : " + message + "<br>";
         }
 
-        chatSocket.onUserCount = (count) => { 
+        chatSocket.onUserCount = (count) => {
             console.log(`${new Date().toISOString()} curr user count:${count}`)
             labelCount.innerHTML = ' userCount: [' + count + ']'
         }
 
-        chatSocket.onLike = (from, count) => { 
+        chatSocket.onLike = (from, count) => {
             console.log(`${new Date().toISOString()} ${from} likes count: ${count}`)
         }
 
-        chatSocket.onTipmeter = (title, unit, progress, goal) => { 
+        chatSocket.onTipmeter = (title, unit, progress, goal) => {
             console.log(`${new Date().toISOString()} tip meter: ${title} ${progress}/${goal} ${unit}`)
             labelTipmeter.innerHTML += 'Tipmeter: ' + title + ' unit: ' + unit + ' progress: ' + progress + ' goal: ' + goal + '<br>'
         }
@@ -212,6 +212,19 @@ export function clickConsumeGift() {
     }
 }
 
+export function sendCallParentFunction(param) {
+  // https://stackoverflow.com/questions/2161388/calling-a-parent-window-function-from-an-iframe
+  // https://stackoverflow.com/questions/251420/invoking-javascript-code-in-an-iframe-from-the-parent-page
+  // https://stackoverflow.com/questions/25098021/securityerror-blocked-a-frame-with-origin-from-accessing-a-cross-origin-frame
+    console.log('sendCallParentFunction', param)
+    // window.parent.parentFunc();
+    window.parent.postMessage('helloWorld', {score: 10});
+}
+
+export function receiveCallFromParentFunction(param) {
+    console.log('sendCallParentFunction', param)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded', 'page-chat')
   console.log('Image through require()', img)
@@ -222,4 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnconnect').addEventListener('click', clickChatConnect);
 
   document.getElementById('btnconsumegift').addEventListener('click', clickConsumeGift);
+
+  document.getElementById('btnsendcallparent').addEventListener('click', sendCallParentFunction);
 })

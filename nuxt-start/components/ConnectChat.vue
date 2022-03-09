@@ -49,7 +49,8 @@
           ref={iframe}
           title="Game"
           className="w-full h-full"
-          src="https://storms.com/games/GoPlay/AZRun/"
+          src="http://localhost:8080"
+          src1="https://storms.com/games/GoPlay/AZRun/"
           srcO="https://develop.storms.com/games/AZRun-WebProtected"
         />
     </div>
@@ -60,6 +61,9 @@
 export default {
   name: 'NuxtTutorial',
   methods: {
+    parentFunc(param) {
+      console.log('parentFunc: ', param);
+    },
     someFunc(message) {
       alert(message);
       console.log(GoPlayChat);
