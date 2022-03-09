@@ -2,6 +2,12 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  // Custom server
+  server: {
+    port: process.env.PORT || 8000,
+    host: process.env.HOST || 'localhost'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'nuxt-start',
