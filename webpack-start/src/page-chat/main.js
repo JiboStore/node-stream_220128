@@ -228,7 +228,7 @@ export function sendCallParentFunction(param) {
 }
 
 export function receiveCallFromParentFunction(param) {
-    console.log('sendCallParentFunction', param)
+    console.log('receiveCallFromParentFunction', param)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -243,4 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnconsumegift').addEventListener('click', clickConsumeGift);
 
   document.getElementById('btnsendcallparent').addEventListener('click', sendCallParentFunction);
+
+  window.addEventListener('message', receiveCallFromParentFunction);
 })

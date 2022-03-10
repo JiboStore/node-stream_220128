@@ -16,7 +16,7 @@
         <p class="mt-4 pt-4 text-gray-800 border-t border-dashed">
           To get started, remove <code class="bg-gray-100 text-sm p-1 rounded border">components/Tutorial.vue</code> and start coding in <code class="bg-gray-100 text-sm p-1 rounded border">pages/index.vue</code>. Have fun!
         </p>
-        <button v-on:click="someFunc('Nuxt is a real sl*t')">I hate Nuxt</button>
+        <button v-on:click="sendMessageToChild('Nuxt is a real sl*t')">I hate Nuxt</button>
       </div>
       <div class="flex justify-center pt-4 space-x-2">
         <a href="https://github.com/nuxt/nuxt.js" target="_blank"><svg
@@ -45,8 +45,9 @@
     </div>
     <div class="the-game">
         <iframe
+          id="effingframe"
           allow="autoplay"
-          ref={iframe}
+          ref="iframe"
           title="Game"
           className="w-full h-full"
           src="http://localhost:8080"
@@ -88,6 +89,17 @@ export default {
       };
       const chatSocket = new GoPlayChat('', options);
       console.log(chatSocket);
+    },
+    sendMessageToChild(message) {
+      console.log('sendMessageToChild: ' + message);
+      // console.log(this.$refs);
+      // this.$refs.iframe.postMessage('helloChild', '*');
+      this.$refs.iframe.contentWindow.postMessage('helloChild', '*');
+      // const win = document.getElementById("effingframe");
+      // console.log(win);
+      // win.postMessage('helloChild', '*');
+      // const win = document.getElementById("effingframe")[0].contentWindow;
+      // win.postMessage('helloChild', '*');
     }
   }
 }
