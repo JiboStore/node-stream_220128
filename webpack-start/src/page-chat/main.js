@@ -218,7 +218,13 @@ export function sendCallParentFunction(param) {
   // https://stackoverflow.com/questions/25098021/securityerror-blocked-a-frame-with-origin-from-accessing-a-cross-origin-frame
     console.log('sendCallParentFunction', param)
     // window.parent.parentFunc();
-    window.parent.postMessage('helloWorld', {score: 10});
+    // window.parent.postMessage('helloWorld', {score: 10});
+    console.log(window);
+    console.log('origin: ' + window.origin);
+    console.log('document.referer', document.referer);
+    // console.log('parent url: ', window.parent.origin); // CORS
+    // window.parent.postMessage('helloWorld', 'http://localhost:8000/'); // has to be parent's url
+    window.parent.postMessage('helloWorld', '*');
 }
 
 export function receiveCallFromParentFunction(param) {

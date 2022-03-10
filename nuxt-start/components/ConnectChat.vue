@@ -8,7 +8,7 @@
       </a>
       <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
         <h2 class="text-2xl leading-7 font-semibold">
-          Welcome to your Fucking Nuxt Application
+          Welcome to your effing Nuxt Application
         </h2>
         <p class="mt-3 text-gray-600">
           We recommend you take a look at the <a href="https://nuxtjs.org" target="_blank" class="button--doc text-green-500 hover:underline">Nuxt documentation</a>, whether you are new or have previous experience with the framework.<br>
@@ -60,6 +60,20 @@
 <script>
 export default {
   name: 'NuxtTutorial',
+  props: {
+
+  },
+  mounted() {
+    console.log('ConnectChat.mounted: ', this.parentFunc);
+    window.addEventListener('message', this.parentFunc);
+    // window.addEventListener("message", (event) => {
+    //   console.log('ConnectChat onEvent: ', event);
+    // });
+  },
+  destroyed() {
+    console.log('ConnectChat.destroyed: ');
+    window.removeEventListener('message', this.parentFunc);
+  },
   methods: {
     parentFunc(param) {
       console.log('parentFunc: ', param);
