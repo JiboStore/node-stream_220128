@@ -24,14 +24,14 @@ Step2.Go to example directory like "part_1_1"
 ```
 cd part_1_1
 ```
- 
+
 Step3.Run 'npm start' after `npm install` to start examples.
 
 ```
 npm install
 npm start
 ```
- 
+
 
 ## 1.One class in the library
 ### 1-1.Publish an "export default" class.
@@ -163,13 +163,13 @@ the argument of this immediate function will be `(window, function ())`.
 It works on browsers that have a `window` object,
 but cannot be run on **node.js** that does not have a **window** object.
 As you might expect, if you try the above, you will get `ReferenceError: window is not defined`.
-So if you want to support **both browser and node.js**, 
+So if you want to support **both browser and node.js**,
 don't forget to include **globalObject: 'this'**.
 
 <font color=blue>**Point 2:**</font>Classes you want to publish are stored with the key "**default**"
 
 If you want to access the classes published in the library,
-Use `require('./mylib.min.js').default` on node.js and use `window.default`(=window["default"]) on the browser. 
+Use `require('./mylib.min.js').default` on node.js and use `window.default`(=window["default"]) on the browser.
 
 Remember that in this configuration, the class is identified by the key **default**.
 
@@ -438,7 +438,7 @@ Now, let's create **index.js** and re-export the **Tom class** in **family.js** 
 export {default as Tom} from './family.js';
 ```
 
-<font color = gray>**Tom** is "**export**"ed by **{default as Tom}** 
+<font color = gray>**Tom** is "**export**"ed by **{default as Tom}**
 when reexporting by index.js. So, strictly speaking, this method is no longer "**default export**".</font>
 
 
@@ -609,8 +609,8 @@ console.log(jack.sayHello());//-> Hi, I am Jack.
 ### 2-2.Publish multiple classes **with library name**
 
 
-By specifying `library:'GreatFamily'`, 
-you can add a library name (like namespace) like as follows. 
+By specifying `library:'GreatFamily'`,
+you can add a library name (like namespace) like as follows.
 
 #### Build Configuration
 
@@ -1112,7 +1112,7 @@ export class Jack {
 
 As mentioned above, in case of node.js (CommonJS2), <font color=red>library name is ignored </font>.
 
-          
+
 ### 3-4.Separate external libraries(dependencies) **using "externals"**
 
 If your library uses an external library (if it has dependencies), there are two types of build methods.
@@ -1197,7 +1197,7 @@ Look at this at the bottom,
 root: 'SimpleDateFormat'
 ```
 
-When using your own library on the browser, 
+When using your own library on the browser,
 **SDF** is built to reference **SimpleDateFormat**(=window.["**SimpleDateFormat**"]).
 
 ● Generated bundle
@@ -1269,7 +1269,7 @@ Next, let's look at using my library created by separating the external library.
 
 <a href="https://riversun.github.io/make-lib-with-webpack/part_3_4/client/example_for_browser.html" target="_blank">Open demo</a>
 
-By the way, 
+By the way,
 the external library used this time was also built by the method of 1-4 in this article.
 
 ●Using from **Node.js**
@@ -1281,3 +1281,11 @@ console.log(tom.sayHello());//-> Hi, I am Tom.
 ```
 
 Written by Tom Misawa (riversun.org@gmail.com) on 2020-02-28
+
+
+#### Extract GoPlay-SDK
+- Clone a new fresh copy of the repository
+- Run this command:
+```
+git filter-branch --prune-empty --subdirectory-filter goplay-sdk
+```
