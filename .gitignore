@@ -45,4 +45,4 @@ build
 /coverage/
 
 # for specific
-mylib.*.js
+# mylib.*.js

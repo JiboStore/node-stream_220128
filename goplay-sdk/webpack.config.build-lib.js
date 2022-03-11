@@ -22,8 +22,8 @@ module.exports = (env, argv) => {
         output: {
             path: path.join(__dirname, '/'),
             filename: argv.mode === 'production' ? `[name].min.js` : `[name].develop.js`,
-            library: 'Tom',
-            libraryExport: 'default',
+            library: '',
+            libraryExport: '',
             libraryTarget: 'umd',
             globalObject: 'this',
         },

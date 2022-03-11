@@ -1,3 +1,4 @@
 import Tom from './family';
 
-export default Tom;
+export { Tom };
+// export default Tom;

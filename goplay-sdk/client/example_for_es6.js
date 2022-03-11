@@ -4,7 +4,7 @@ console.log = (m) => {
 };
 
 //(3-4) for ES6
-import Tom from '../mylib.min.js';
+import { Tom } from '../mylib.min.js';
 const tom = new Tom();
 console.log(tom.sayHello());//-> Hi, I am Tom.
 
