@@ -1,12 +1,16 @@
-window.H5SDK = (function() {
-  const EVENT_TYPES = {
-    INIT: 'INIT',
-    START: 'START',
-    SUBMIT: 'SUBMIT',
-    QUIT: 'QUIT'
-  };
+const EVENT_TYPES = {
+  INIT: 'INIT',
+  START: 'START',
+  SUBMIT: 'SUBMIT',
+  QUIT: 'QUIT'
+};
 
-  function _send(data, extraData) {
+// window.H5SDK = (function() {
+class H5SDK {
+
+  _send(data, extraData) {
+    console.log('send data: ', data);
+    console.log('send extraData: ', extraData);
     try {
       const stringData = JSON.stringify(
         Object.assign(
@@ -41,28 +45,28 @@ window.H5SDK = (function() {
     }
   }
 
-  function H5SDK() {}
-
-  H5SDK.prototype.init = function (extraData) {
-    _send({ eventName: EVENT_TYPES.INIT }, extraData);
+  init (extraData){
+    console.error('init extraData: ', extraData);
+    this._send({ eventName: EVENT_TYPES.INIT }, extraData);
+    return 'hello djay';
   }
 
-  H5SDK.prototype.start = function (extraData) {
+  start (extraData) {
     _send({ eventName: EVENT_TYPES.START }, extraData);
   }
 
-  H5SDK.prototype.submit = function (extraData) {
+  submit (extraData) {
     if(extraData.hasOwnProperty('SCORE')) {
       extraData.SCORE = parseInt(extraData.SCORE);
     }
     _send({ eventName: EVENT_TYPES.SUBMIT }, extraData);
   }
 
-  H5SDK.prototype.quit = function (extraData) {
+  quit (extraData) {
     _send({ eventName: EVENT_TYPES.QUIT }, extraData);
   }
 
-  H5SDK.prototype.debug = function () {
+  debug () {
     window.addEventListener('message', function(event) {
       console.debug('PostMessage event: ', event);
 
@@ -72,5 +76,43 @@ window.H5SDK = (function() {
     }, false);
   }
 
-  return new H5SDK();
-})();
+  // function H5SDK() {}
+
+  // H5SDK.prototype.init = function (extraData) {
+  //   _send({ eventName: EVENT_TYPES.INIT }, extraData);
+  // }
+
+  // H5SDK.prototype.start = function (extraData) {
+  //   _send({ eventName: EVENT_TYPES.START }, extraData);
+  // }
+
+  // H5SDK.prototype.submit = function (extraData) {
+  //   if(extraData.hasOwnProperty('SCORE')) {
+  //     extraData.SCORE = parseInt(extraData.SCORE);
+  //   }
+  //   _send({ eventName: EVENT_TYPES.SUBMIT }, extraData);
+  // }
+
+  // H5SDK.prototype.quit = function (extraData) {
+  //   _send({ eventName: EVENT_TYPES.QUIT }, extraData);
+  // }
+
+  // H5SDK.prototype.debug = function () {
+  //   window.addEventListener('message', function(event) {
+  //     console.debug('PostMessage event: ', event);
+
+  //     if (event.data) {
+  //       console.debug('event.data: ', event.data);
+  //     }
+  //   }, false);
+  // }
+
+  // return new H5SDK();
+// })();
+
+}
+
+export {
+  EVENT_TYPES,
+  H5SDK
+};
