@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
         },
 
         entry: {
-            'mylib': [`./src/family.js`],
+            'mylib': [`./src/index.js`],
         },
         // library building properties for (3-4)
         output: {

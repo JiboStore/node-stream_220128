@@ -1,7 +1,7 @@
 {
-  "name": "@riversun/making-library-with-webpack",
+  "name": "GoPlaySDK",
   "version": "1.0.0",
-  "description": "making library with webpack example (3-4)",
+  "description": "Live Streaming SDK for Game Receh",
   "main": "family.min.js",
   "scripts": {
     "build:bundlejs:prd": "webpack --config webpack.config.build-lib.js --mode production",
@@ -13,16 +13,8 @@
     "exec:all": "run-p exec:nodejs exec:es6 exec:browser",
     "start": "run-s build exec:all"
   },
-  "author": "Tom Misawa <riversun.org@gmail.com> (https://github.com/riversun)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/riversun/making-library-with-webpack.git"
-  },
-  "bugs": {
-    "url": "https://github.com/riversun/making-library-with-webpack/issues"
-  },
-  "homepage": "https://github.com/riversun/making-library-with-webpack#readme",
+  "author": "Hakim Hauston<hakim.hauston@storms.com>",
+  "homepage": "https://www.storms.com",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
