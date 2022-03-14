@@ -9,9 +9,13 @@
 *.iws
 .idea/
 
+# for VSCode
+.vscode/
+
 # for build
 target
 build
+mylib.*
 
 # for  mac
 .DS_Store
