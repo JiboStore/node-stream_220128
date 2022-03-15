@@ -34,6 +34,10 @@ export default {
       {
         src: 'https://storms.com/games/lib/gchat-220210.js',
         body: true,
+      },
+      {
+        src: 'http://localhost:3001/mylib.develop.js',
+        body: true,
       }
     ]
   },

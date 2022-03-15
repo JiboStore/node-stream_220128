@@ -69,6 +69,9 @@ export default {
     window.addEventListener('message', this.parentFunc);
     // window.addEventListener("message", (event) => {
     //   console.log('ConnectChat onEvent: ', event);
+
+    const h5sdk = new H5SDK();
+    h5sdk.init({bye: 'gojek'});
     // });
   },
   destroyed() {
